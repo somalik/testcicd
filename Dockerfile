@@ -7,11 +7,11 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-WORKDIR /src
+WORKDIR /var/lib/jenkins/workspace/webapi/
 COPY ["testcicd/TestCICDAPI.csproj", "testcicd/"]
 RUN dotnet restore "testcicd/TestCICDAPI.csproj"
 COPY . .
-WORKDIR "/src/testcicd"
+WORKDIR "/var/lib/jenkins/workspace/webapi/testcicd"
 RUN dotnet build "TestCICDAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
